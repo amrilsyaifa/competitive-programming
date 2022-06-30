@@ -1,45 +1,29 @@
 const translateText = (text, targetText) => {
     // Lanjutin
+    let resultString = ""
     let stringToArray = text.split("");
-    let isRepeat = true;
-    let counter = 0;
-    let index = -1;
-    while (isRepeat) {
-        isRepeat = false;
-        for (let i = 0; i < stringToArray.length; i++) {
-            if (stringToArray[i] === targetText && counter === 0 && index < 0) {
-                index = i;
-                counter++;
-                isRepeat = true;
-            } else if (
-                stringToArray[i] === targetText &&
-                counter > 0 &&
-                index > -1
-            ) {
-                counter++;
-                isRepeat = true;
-            } else if (
-                stringToArray[i] !== targetText &&
-                counter > 0 &&
-                index > -1
-            ) {
-                stringToArray.splice(index, counter, counter);
-                index = -1;
-                counter = 0;
-                isRepeat = true;
-                // console.log('index ', index)
-                // console.log('counter ', counter)
-                // console.log('stringToArray ', stringToArray)
-            } else {
-              console.log('is ,', stringToArray)
-                isRepeat = false;
+    console.log(stringToArray.length)
+    let stringTarget = ""
+    for (let i in stringToArray) {
+        
+        if (stringToArray[i] === targetText) {
+            if(stringToArray.length === +i +1 && stringTarget.length === 0) {
+                resultString = resultString + stringToArray[i].length
+            }else if (stringToArray.length === +i +1 && stringTarget.length > 0) {
+                resultString = resultString + (stringTarget.length +  stringToArray[i].length)
             }
+            stringTarget = stringTarget + stringToArray[i]
+        }else if(stringTarget.length > 0 && stringToArray[i] !== targetText) {
+            resultString = resultString + stringTarget.length +  stringToArray[i]
+            stringTarget = ""
+        }else {
+            resultString = resultString + stringToArray[i]
         }
     }
-    return stringToArray.join("");
+  return resultString
 };
 
-const word = "Helloooo Woorld";
+const word = "Hellooo Woorldoo";
 const target = "o";
 
 const response = translateText(word, target);
